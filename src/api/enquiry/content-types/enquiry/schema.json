@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "enquiries",
+  "info": {
+    "singularName": "enquiry",
+    "pluralName": "enquiries",
+    "displayName": "enquiry"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "services": {
+      "type": "enumeration",
+      "enum": [
+        "Web development ",
+        "Graphic designing ",
+        "Digital Marketing",
+        "Seo Optimisation",
+        "Content Writing ",
+        "Brand Identity"
+      ]
+    },
+    "message": {
+      "type": "text"
+    }
+  }
+}
