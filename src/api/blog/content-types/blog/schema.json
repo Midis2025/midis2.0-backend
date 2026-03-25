@@ -1,5 +1,5 @@
 {
-  "kind": "singleType",
+  "kind": "collectionType",
   "collectionName": "blogs",
   "info": {
     "singularName": "blog",
@@ -14,12 +14,8 @@
     "title": {
       "type": "string"
     },
-    "content": {
-      "type": "customField",
-      "customField": "plugin::ckeditor5.CKEditor",
-      "options": {
-        "preset": "defaultHtml"
-      }
+    "shortDescription": {
+      "type": "text"
     },
     "image": {
       "type": "media",
@@ -31,12 +27,16 @@
         "audios"
       ]
     },
-    "shortDescription": {
-      "type": "text"
-    },
-    "slug": {
+    "Slug": {
       "type": "uid",
       "targetField": "title"
+    },
+    "longDescription": {
+      "type": "customField",
+      "customField": "plugin::ckeditor5.CKEditor",
+      "options": {
+        "preset": "defaultHtml"
+      }
     }
   }
 }
