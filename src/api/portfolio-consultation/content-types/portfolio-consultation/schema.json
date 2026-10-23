@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "portfolio_consultations",
+  "info": {
+    "singularName": "portfolio-consultation",
+    "pluralName": "portfolio-consultations",
+    "displayName": "portfolio-consultation"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "serviceNeeded": {
+      "type": "enumeration",
+      "enum": [
+        "New Website",
+        "Redesign",
+        "E-commerce",
+        "Landing page",
+        "other"
+      ]
+    },
+    "phone": {
+      "type": "string"
+    },
+    "projectDescription": {
+      "type": "text"
+    }
+  }
+}

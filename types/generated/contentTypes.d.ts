@@ -506,6 +506,87 @@ export interface ApiEnquiryEnquiry extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPortfolioConsultationPortfolioConsultation
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'portfolio_consultations';
+  info: {
+    displayName: 'portfolio-consultation';
+    pluralName: 'portfolio-consultations';
+    singularName: 'portfolio-consultation';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::portfolio-consultation.portfolio-consultation'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    projectDescription: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    serviceNeeded: Schema.Attribute.Enumeration<
+      ['New Website', 'Redesign', 'E-commerce', 'Landing page', 'other']
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPortfolioProjectEstimatePortfolioProjectEstimate
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'portfolio_project_estimates';
+  info: {
+    displayName: 'portfolio-project-estimate';
+    pluralName: 'portfolio-project-estimates';
+    singularName: 'portfolio-project-estimate';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    budgetRange: Schema.Attribute.Enumeration<
+      [
+        'budget_1000_3000',
+        'budget_3000_5000',
+        'budget_5000_10000',
+        'budget_not_sure',
+      ]
+    >;
+    companyName: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    existingWebsite: Schema.Attribute.Enumeration<
+      ['keep-existing', 'replace-existing', 'first-website']
+    >;
+    fullName: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::portfolio-project-estimate.portfolio-project-estimate'
+    > &
+      Schema.Attribute.Private;
+    phoneNumber: Schema.Attribute.String;
+    projectType: Schema.Attribute.Enumeration<
+      ['new-website', 'redesign', 'e-commerce', 'landing-page', 'other']
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1019,6 +1100,8 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::blog.blog': ApiBlogBlog;
       'api::enquiry.enquiry': ApiEnquiryEnquiry;
+      'api::portfolio-consultation.portfolio-consultation': ApiPortfolioConsultationPortfolioConsultation;
+      'api::portfolio-project-estimate.portfolio-project-estimate': ApiPortfolioProjectEstimatePortfolioProjectEstimate;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
