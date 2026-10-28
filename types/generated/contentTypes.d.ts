@@ -559,6 +559,57 @@ export interface ApiPortfolioInquiryPortfolioInquiry
   };
 }
 
+export interface ApiPortfolioWebsiteAuditPortfolioWebsiteAudit
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'portfolio_website_audits';
+  info: {
+    displayName: 'portfolio-website-audit';
+    pluralName: 'portfolio-website-audits';
+    singularName: 'portfolio-website-audit';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    auditResults: Schema.Attribute.JSON;
+    auditStatus: Schema.Attribute.Enumeration<
+      ['pending', 'processing', 'completed', 'failed']
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    desktopAccessibility: Schema.Attribute.Integer;
+    desktopBestPractices: Schema.Attribute.Integer;
+    desktopPerformance: Schema.Attribute.Integer;
+    desktopSeo: Schema.Attribute.Integer;
+    email: Schema.Attribute.Email;
+    fullName: Schema.Attribute.String;
+    hubspotContactId: Schema.Attribute.String;
+    hubspotSyncStatus: Schema.Attribute.Enumeration<
+      ['pending', 'synced', 'failed']
+    >;
+    improvementOpportunities: Schema.Attribute.JSON;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::portfolio-website-audit.portfolio-website-audit'
+    > &
+      Schema.Attribute.Private;
+    marketingOptIn: Schema.Attribute.Boolean;
+    mobileAccessibility: Schema.Attribute.Integer;
+    mobileBestPractices: Schema.Attribute.Integer;
+    mobilePerformance: Schema.Attribute.Integer;
+    mobileSeo: Schema.Attribute.Integer;
+    phoneNumber: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    reportUrl: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    websiteUrl: Schema.Attribute.String;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1073,6 +1124,7 @@ declare module '@strapi/strapi' {
       'api::blog.blog': ApiBlogBlog;
       'api::enquiry.enquiry': ApiEnquiryEnquiry;
       'api::portfolio-inquiry.portfolio-inquiry': ApiPortfolioInquiryPortfolioInquiry;
+      'api::portfolio-website-audit.portfolio-website-audit': ApiPortfolioWebsiteAuditPortfolioWebsiteAudit;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

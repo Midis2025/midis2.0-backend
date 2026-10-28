@@ -1,0 +1,83 @@
+{
+  "kind": "collectionType",
+  "collectionName": "portfolio_website_audits",
+  "info": {
+    "singularName": "portfolio-website-audit",
+    "pluralName": "portfolio-website-audits",
+    "displayName": "portfolio-website-audit"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "websiteUrl": {
+      "type": "string"
+    },
+    "fullName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "marketingOptIn": {
+      "type": "boolean"
+    },
+    "auditStatus": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed"
+      ]
+    },
+    "mobilePerformance": {
+      "type": "integer"
+    },
+    "mobileSeo": {
+      "type": "integer"
+    },
+    "mobileAccessibility": {
+      "type": "integer"
+    },
+    "mobileBestPractices": {
+      "type": "integer"
+    },
+    "desktopPerformance": {
+      "type": "integer"
+    },
+    "desktopSeo": {
+      "type": "integer"
+    },
+    "desktopAccessibility": {
+      "type": "integer"
+    },
+    "desktopBestPractices": {
+      "type": "integer"
+    },
+    "auditResults": {
+      "type": "json"
+    },
+    "improvementOpportunities": {
+      "type": "json"
+    },
+    "reportUrl": {
+      "type": "string"
+    },
+    "hubspotContactId": {
+      "type": "string"
+    },
+    "hubspotSyncStatus": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "synced",
+        "failed"
+      ]
+    }
+  }
+}
