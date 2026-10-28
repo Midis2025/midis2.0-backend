@@ -510,26 +510,33 @@ export interface ApiPortfolioInquiryPortfolioInquiry
   extends Struct.CollectionTypeSchema {
   collectionName: 'portfolio_inquiries';
   info: {
-    displayName: 'portfolio-inquiry';
+    description: 'Portfolio inquiries from the Midis portfolio consultation form';
+    displayName: 'Portfolio Inquiry';
     pluralName: 'portfolio-inquiries';
     singularName: 'portfolio-inquiry';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
-    businessEmail: Schema.Attribute.Email;
+    businessEmail: Schema.Attribute.Email & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    hubspotContactId: Schema.Attribute.String;
+    hubspotSyncStatus: Schema.Attribute.Enumeration<
+      ['pending', 'synced', 'failed']
+    > &
+      Schema.Attribute.DefaultTo<'pending'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::portfolio-inquiry.portfolio-inquiry'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String;
-    phoneNumber: Schema.Attribute.String;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    phoneCountryCode: Schema.Attribute.String & Schema.Attribute.Required;
+    phoneNumber: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     serviceNeeded: Schema.Attribute.Enumeration<
       [
@@ -539,8 +546,12 @@ export interface ApiPortfolioInquiryPortfolioInquiry
         'landing-page-development',
         'not-sure-yet',
       ]
-    >;
-    sourceWebsite: Schema.Attribute.String;
+    > &
+      Schema.Attribute.Required;
+    sourceWebsite: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'midis-portfolio'>;
+    submissionType: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
