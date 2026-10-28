@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "portfolio_inquiries",
+  "info": {
+    "singularName": "portfolio-inquiry",
+    "pluralName": "portfolio-inquiries",
+    "displayName": "portfolio-inquiry"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "businessEmail": {
+      "type": "email"
+    },
+    "phoneNumber": {
+      "type": "string"
+    },
+    "websiteUrl": {
+      "type": "string"
+    },
+    "serviceNeeded": {
+      "type": "enumeration",
+      "enum": [
+        "new-website-development",
+        "website-redesign",
+        "e-commerce-website",
+        "landing-page-development",
+        "not-sure-yet"
+      ]
+    },
+    "sourceWebsite": {
+      "type": "string"
+    }
+  }
+}

@@ -506,84 +506,45 @@ export interface ApiEnquiryEnquiry extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiPortfolioConsultationPortfolioConsultation
+export interface ApiPortfolioInquiryPortfolioInquiry
   extends Struct.CollectionTypeSchema {
-  collectionName: 'portfolio_consultations';
+  collectionName: 'portfolio_inquiries';
   info: {
-    displayName: 'portfolio-consultation';
-    pluralName: 'portfolio-consultations';
-    singularName: 'portfolio-consultation';
+    displayName: 'portfolio-inquiry';
+    pluralName: 'portfolio-inquiries';
+    singularName: 'portfolio-inquiry';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
+    businessEmail: Schema.Attribute.Email;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    email: Schema.Attribute.Email;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::portfolio-consultation.portfolio-consultation'
+      'api::portfolio-inquiry.portfolio-inquiry'
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
-    phone: Schema.Attribute.String;
-    projectDescription: Schema.Attribute.Text;
+    phoneNumber: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     serviceNeeded: Schema.Attribute.Enumeration<
-      ['New Website', 'Redesign', 'E-commerce', 'Landing page', 'other']
-    >;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiPortfolioProjectEstimatePortfolioProjectEstimate
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'portfolio_project_estimates';
-  info: {
-    displayName: 'portfolio-project-estimate';
-    pluralName: 'portfolio-project-estimates';
-    singularName: 'portfolio-project-estimate';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    budgetRange: Schema.Attribute.Enumeration<
       [
-        'budget_1000_3000',
-        'budget_3000_5000',
-        'budget_5000_10000',
-        'budget_not_sure',
+        'new-website-development',
+        'website-redesign',
+        'e-commerce-website',
+        'landing-page-development',
+        'not-sure-yet',
       ]
     >;
-    companyName: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    email: Schema.Attribute.Email;
-    existingWebsite: Schema.Attribute.Enumeration<
-      ['keep-existing', 'replace-existing', 'first-website']
-    >;
-    fullName: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::portfolio-project-estimate.portfolio-project-estimate'
-    > &
-      Schema.Attribute.Private;
-    phoneNumber: Schema.Attribute.String;
-    projectType: Schema.Attribute.Enumeration<
-      ['new-website', 'redesign', 'e-commerce', 'landing-page', 'other']
-    >;
-    publishedAt: Schema.Attribute.DateTime;
+    sourceWebsite: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    websiteUrl: Schema.Attribute.String;
   };
 }
 
@@ -1100,8 +1061,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::blog.blog': ApiBlogBlog;
       'api::enquiry.enquiry': ApiEnquiryEnquiry;
-      'api::portfolio-consultation.portfolio-consultation': ApiPortfolioConsultationPortfolioConsultation;
-      'api::portfolio-project-estimate.portfolio-project-estimate': ApiPortfolioProjectEstimatePortfolioProjectEstimate;
+      'api::portfolio-inquiry.portfolio-inquiry': ApiPortfolioInquiryPortfolioInquiry;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
