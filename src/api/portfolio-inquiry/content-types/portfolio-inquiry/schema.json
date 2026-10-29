@@ -63,6 +63,24 @@
     },
     "hubspotContactId": {
       "type": "string"
+    },
+    "thankYouEmailStatus": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "sending",
+        "sent",
+        "failed",
+        "skipped"
+      ],
+      "default": "pending"
+    },
+    "thankYouEmailSentAt": {
+      "type": "datetime"
+    },
+    "thankYouEmailError": {
+      "type": "text",
+      "private": true
     }
   }
 }

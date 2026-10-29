@@ -552,6 +552,12 @@ export interface ApiPortfolioInquiryPortfolioInquiry
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'midis-portfolio'>;
     submissionType: Schema.Attribute.String;
+    thankYouEmailError: Schema.Attribute.Text & Schema.Attribute.Private;
+    thankYouEmailSentAt: Schema.Attribute.DateTime;
+    thankYouEmailStatus: Schema.Attribute.Enumeration<
+      ['pending', 'sending', 'sent', 'failed', 'skipped']
+    > &
+      Schema.Attribute.DefaultTo<'pending'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

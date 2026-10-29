@@ -1,5 +1,6 @@
 import type { Core } from '@strapi/strapi';
 import hubspotService from './api/portfolio-inquiry/services/hubspot';
+import thankYouEmailService from './api/portfolio-inquiry/services/thank-you-email';
 
 const PORTFOLIO_INQUIRY_UID = 'api::portfolio-inquiry.portfolio-inquiry';
 
@@ -9,18 +10,20 @@ export default {
    * your application is initialized.
    *
    * Registers a Document Service middleware so that every portfolio inquiry is
-   * pushed to HubSpot no matter how it was created: the public REST endpoint,
-   * the admin Content Manager, GraphQL or a seed script. The controller alone
-   * cannot do this, because the Content Manager calls
-   * `strapi.documents(uid).create()` directly and never runs the API controller.
+   * pushed to HubSpot and sent a thank-you email no matter how it was created:
+   * the public REST endpoint, the admin Content Manager, GraphQL or a seed
+   * script. The controller alone cannot do this, because the Content Manager
+   * calls `strapi.documents(uid).create()` directly and never runs the API
+   * controller.
    */
   register({ strapi }: { strapi: Core.Strapi }) {
     strapi.documents.use(async (context, next) => {
       const result = await next();
 
-      // Only brand new inquiries trigger a sync. Narrowing to `create` also keeps
-      // the status write-back in `updateStrapiStatus` (a `update` call) from
-      // re-entering this middleware and recursing.
+      // Only brand new inquiries trigger the integrations. Narrowing to
+      // `create` is also what keeps the HubSpot status write-back (an `update`
+      // call) from re-entering this middleware and recursing, and it is what
+      // guarantees editing an existing inquiry never re-sends its email.
       if (context.uid !== PORTFOLIO_INQUIRY_UID || context.action !== 'create') {
         return result;
       }
@@ -53,6 +56,23 @@ export default {
           strapi.log.error(
             `[Portfolio Inquiry] Background HubSpot sync error for ${inquiry.documentId}: ${
               syncErr instanceof Error ? syncErr.message : syncErr
+            }`
+          );
+        });
+
+      // Thank-you email, kept independent of the HubSpot sync so that neither
+      // integration can fail the other or the API response. Idempotency is
+      // enforced inside the service by a per-record status claim.
+      thankYouEmailService
+        .sendThankYou({
+          documentId: inquiry.documentId,
+          name: inquiry.name,
+          businessEmail: inquiry.businessEmail,
+        })
+        .catch((emailErr) => {
+          strapi.log.error(
+            `[Portfolio Inquiry] Background thank-you email error for ${inquiry.documentId}: ${
+              emailErr instanceof Error ? emailErr.message : emailErr
             }`
           );
         });
